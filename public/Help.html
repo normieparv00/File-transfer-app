@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Help</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .Container {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 200px;
+      }
+
+      .block1 {
+        background-color: #222; /* Slightly lighter background for contrast */
+        margin-bottom: 60px;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 8px rgb(52, 160, 210); /* Applying shadow */
+        text-align: center;
+        transition: transform 0.3s ease-in-out;
+        width: 120%;
+      }
+
+      .block1:hover {
+        transform: scale(1.02);
+      }
+      .block1 h1 {
+        font-size: 25px;
+        color: #20c9eb;
+        margin-bottom: 10px;
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      }
+
+      .block1 p {
+        font-size: 18px;
+        color: #fff;
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-zinc-950 text-white flex flex-col items-center justify-center min-h-screen p-6"
+  >
+    <div class="nav-container mb-10">
+      <nav class="nav3 bg-zinc-900">
+        <ul>
+          <li
+            class="li text-2xl not-italic"
+            style="
+              font-family: Georgia, 'Times New Roman', Times, serif;
+              font-weight: 1000;
+            "
+          >
+            SeamlessShare
+          </li>
+          <li><a href="index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#">Resources</a>
+            <div
+              class="dropdown-content text-center w-48 shadow-lg rounded-full group-hover:block absolute left-1/2 transform -translate-x-1/2 z-50"
+            >
+              <a href="Blog.html">Blog</a>
+              <a href="About_us.html">About Us</a>
+            </div>
+          </li>
+          <li><a href="Help.html">Help</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="Container">
+      <h2
+        style="
+          font-size: 30px;
+          text-shadow: 0 0 8px rgb(52, 160, 210);
+          margin-bottom: 40px;
+          margin-top: -90px;
+          text-decoration: underline 1px;
+        "
+      >
+        How to Use
+      </h2>
+
+      <div class="block1">
+        <h1>How to Send Files</h1>
+        <p>Click on "Upload File" and select the file from your device.</p>
+        <p>A 6-digit code will be generated after uploading.</p>
+        <p>Share this code with the recipient for them to access the file.</p>
+      </div>
+
+      <div class="block1">
+        <h1>How to Receive Files</h1>
+        <p>Enter the 6-digit code in the "Download" section.</p>
+        <p>Click "Retrieve File" to start the download.</p>
+      </div>
+
+      <div class="block1">
+        <h1>Supported File Types & Size</h1>
+        <p>
+          All file types are supported (documents, images, videos, compressed
+          files, etc.).
+        </p>
+        <p>Maximum file size: Up to 500MB (subject to change).</p>
+      </div>
+
+      <div class="block1">
+        <h1>Security & Privacy</h1>
+        <p>Files are temporarily stored and auto-deleted after a set period.</p>
+        <p>No login required – just share the code securely.</p>
+        <p>End-to-end encryption ensures safe transfers.</p>
+      </div>
+
+      <div class="block1">
+        <h1>Troubleshooting</h1>
+        <p style="color: rgb(232, 127, 155)">Issue: Code not working?</p>
+        <p>Ensure the sender has shared the correct code.</p>
+        <p>Check if the file has expired or been deleted.</p>
+        <p style="color: rgb(232, 127, 155)">Issue: Unable to upload files?</p>
+        <p>Check your internet connection.</p>
+        <p>Ensure the file size is within the allowed limit.</p>
+      </div>
+
+      <div class="block1">
+        <h1>Contact Support</h1>
+        <p>📧 Email: Uplords@filetransfer.com</p>
+      </div>
+    </div>
+    <footer>
+      <p style="color: #00d4ff">
+        © 2025 File Transfer System. All rights reserved.
+      </p>
+    </footer>
+  </body>
+</html>

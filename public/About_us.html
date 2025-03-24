@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .sect {
+        width: 90%;
+        max-width: 800px; /* Limit max width for better readability */
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        gap: 40px; /* Space between sections */
+        margin-top: 140px; /* Push content below navbar */
+        margin-bottom: 140px;
+      }
+
+      section,
+      .block1 {
+        background-color: #222; /* Slightly lighter background for contrast */
+        padding: 18px;
+        border-radius: 10px;
+        box-shadow: 0 0 8px rgb(52, 160, 210); /* Applying shadow */
+        text-align: center;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      section:hover,
+      .block1:hover {
+        transform: scale(1.02);
+      }
+
+      .about-us h2 {
+        font-size: 28px;
+        text-shadow: 0 0 8px rgb(52, 160, 210);
+        margin-bottom: 10px;
+      }
+
+      .team-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .team-member {
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 8px;
+        width: 300px;
+        box-shadow: 0 0 8px rgba(52, 160, 210, 0.7);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .team-member:hover {
+        transform: scale(1.05);
+      }
+
+      .team-member h4 {
+        font-size: 20px;
+        color: #00d4ff;
+      }
+
+      .team-member p {
+        font-size: 16px;
+        color: #ccc;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-zinc-950 text-white flex flex-col items-center justify-center min-h-screen p-6"
+  >
+    <div class="nav-container mb-10">
+      <nav class="nav3 bg-zinc-900">
+        <ul>
+          <li
+            class="li text-2xl not-italic"
+            style="
+              font-family: Georgia, 'Times New Roman', Times, serif;
+              font-weight: 1000;
+            "
+          >
+            SeamlessShare
+          </li>
+          <li><a href="index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#">Resources</a>
+            <div
+              class="dropdown-content text-center w-48 shadow-lg rounded-full group-hover:block absolute left-1/2 transform -translate-x-1/2 z-50"
+            >
+              <a href="Blog.html">Blog</a>
+              <a href="About_us.html">About Us</a>
+            </div>
+          </li>
+          <li><a href="Help.html">Help</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="sect">
+      <!-- About Us Section -->
+      <section id="about-us" class="about-us">
+        <h2>About Us</h2>
+        <p style="color: #8abbeb; font-size: 15px">
+          We are a passionate team of developers from <b>PICT College</b>,
+          pursuing Electronics and Computer Engineering. Our goal is to create
+          seamless and efficient file transfer solutions that prioritize
+          security and ease of use.
+        </p>
+
+        <h3 style="font-weight: 550; margin-top: 10px">Meet the Team</h3>
+        <div class="team-container">
+          <div class="team-member">
+            <h4>🚀 Parv Sheth</h4>
+            <p>
+              Handled deployment ensuring that our platform runs efficiently and
+              is accessible to all users. Also conducted in-depth research, analyzed key findings from academic papers, and prepared comprehensive reports
+            </p>
+          </div>
+          <div class="team-member">
+            <h4>👨‍💻 Sidharth Maharana</h4>
+            <p>
+              Responsible for backend development, ensuring smooth data
+              processing along with efficient storage utilization and secure file handling.
+            </p>
+          </div>
+
+          <div class="team-member">
+            <h4>👩‍💻 Saee Tarde</h4>
+            <p>
+              Led the front-end development and JavaScript integration, creating
+              an intuitive and a beautiful, user-friendly interface making it possible for everyone to transfer files seamlessly.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <p style="color: #00d4ff; height: 15px">
+        © 2025 File Transfer System. All rights reserved.
+      </p>
+    </footer>
+  </body>
+</html>

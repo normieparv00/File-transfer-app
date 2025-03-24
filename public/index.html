@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Transfer Home Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body
+    class="bg-zinc-950 text-white flex flex-col items-center justify-center h-screen p-6"
+  >
+    <div class="nav-container mb-10">
+      <nav class="nav3 bg-zinc-900">
+        <ul>
+          <li
+            class="li text-2xl not-italic"
+            style="
+              font-family: Georgia, 'Times New Roman', Times, serif;
+              font-weight: 1000;
+            "
+          >
+            SeamlessShare
+          </li>
+          <li><a href="index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#">Resources</a>
+            <div
+              class="dropdown-content text-center w-48 shadow-lg rounded-full group-hover:block absolute left-1/2 transform -translate-x-1/2 z-50"
+            >
+              <a href="Blog.html">Blog</a>
+              <a href="About_us.html">About Us</a>
+            </div>
+          </li>
+          <li><a href="Help.html">Help</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container-1">
+      <div class="w-full max-w-md container-upload">
+        <!-- Upload Section -->
+        <div class="bg-gray-800 p-9 rounded-lg shadow-lg mb-6 text-center">
+          <h2 class="text-xl font-bold mb-4">Upload Files</h2>
+          <input type="file" id="fileInput" class="hidden" multiple />
+          <button
+            id="selectFilesBtn"
+            class="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-2"
+          >
+            Select Files
+          </button>
+          <p id="uploadStatus" class="mt-3 text-sm text-gray-300"></p>
+          <div class="progress-bar mt-6">
+            <div id="progress" class="progress"></div>
+          </div>
+        </div>
+
+        <!-- Uploaded Files List (Initially Hidden) -->
+        <div
+          id="uploadedFilesContainer"
+          class="bg-gray-800 p-8 rounded-lg shadow-lg text-center hidden"
+        >
+          <h2 class="text-xl font-bold mb-3">Uploaded Files</h2>
+          <ul id="uploadedFilesList" class="text-left text-sm"></ul>
+        </div>
+
+        <!-- File Codes Section (Initially Hidden) -->
+        <div
+          id="fileCodesContainer"
+          class="bg-gray-800 p-6 rounded-lg shadow-lg text-center hidden mt-6"
+        >
+          <h2 class="text-xl font-bold mb-3">File Codes</h2>
+          <div id="fileCodesList" class="grid gap-2 text-center"></div>
+        </div>
+
+        <!-- Download Section -->
+        <div
+          class="bg-gray-800 p-9 rounded-lg shadow-lg text-center mt-6 Receive"
+        >
+          <h2 class="text-xl font-bold mb-3">Receive File</h2>
+          <input
+            type="text"
+            id="fileCodeInput"
+            placeholder="Enter 6-digit code"
+            class="w-full p-2 text-black rounded-md mb-3 text-center"
+          />
+          <button
+            id="downloadBtn"
+            class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md"
+          >
+            Download
+          </button>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p style="color: #00d4ff">
+        © 2025 File Transfer System. All rights reserved.
+      </p>
+    </footer>
+
+    <script>
+      document
+        .getElementById("selectFilesBtn")
+        .addEventListener("click", function () {
+          document.getElementById("fileInput").click();
+        });
+
+      document
+        .getElementById("fileInput")
+        .addEventListener("change", async function () {
+          const fileInput = this;
+          const statusText = document.getElementById("uploadStatus");
+          const uploadedFilesContainer = document.getElementById(
+            "uploadedFilesContainer"
+          );
+          const uploadedFilesList =
+            document.getElementById("uploadedFilesList");
+          const fileCodesContainer =
+            document.getElementById("fileCodesContainer");
+          const fileCodesList = document.getElementById("fileCodesList");
+          const progressBar = document.getElementById("progress"); // Progress bar
+
+          if (!fileInput.files.length) {
+            statusText.innerText = "⚠️ No files selected!";
+            statusText.classList.add("text-red-500");
+            return;
+          }
+
+          function adjustFooter() {
+            document.body.style.height = "auto";
+            document.body.style.height = document.body.scrollHeight + "px";
+          }
+
+          setTimeout(adjustFooter, 100); // Small delay to allow DOM update
+
+          statusText.innerText = "⏳ Uploading...";
+          statusText.classList.remove("text-red-500");
+          statusText.classList.add("text-gray-300");
+
+          uploadedFilesList.innerHTML = ""; // Clear previous entries
+          fileCodesList.innerHTML = ""; // Clear previous codes
+          uploadedFilesContainer.classList.remove("hidden"); // Show the file list container
+          fileCodesContainer.classList.remove("hidden"); // Show the file codes container
+
+          progressBar.style.width = "0%"; // Reset progress bar
+
+          for (let file of fileInput.files) {
+            const formData = new FormData();
+            formData.append("file", file);
+
+            try {
+              const response = await fetch("/upload", {
+                method: "POST",
+                body: formData,
+              });
+
+              const result = await response.json();
+              if (response.ok) {
+                let listItem = document.createElement("li");
+                listItem.innerText = `✅ ${file.name}`;
+                listItem.classList.add("text-green-400", "mt-1");
+                uploadedFilesList.appendChild(listItem);
+
+                let codeItem = document.createElement("div");
+                codeItem.innerText = result.fileCode;
+                codeItem.classList.add(
+                  "text-2xl",
+                  "font-bold",
+                  "bg-gray-700",
+                  "py-2",
+                  "rounded-md",
+                  "cursor-pointer",
+                  "hover:bg-gray-600",
+                  "transition"
+                );
+                codeItem.onclick = () => copyToClipboard(result.fileCode);
+                fileCodesList.appendChild(codeItem);
+                adjustFooter();
+              } else {
+                let listItem = document.createElement("li");
+                listItem.innerText = `❌ ${file.name} - ${result.error}`;
+                listItem.classList.add("text-red-500", "mt-1");
+                uploadedFilesList.appendChild(listItem);
+              }
+            } catch (error) {
+              let listItem = document.createElement("li");
+              listItem.innerText = `❌ ${file.name} - Upload failed!`;
+              listItem.classList.add("text-red-500", "mt-1");
+              uploadedFilesList.appendChild(listItem);
+            }
+          }
+
+          statusText.innerText = "✅ Upload complete!";
+          statusText.classList.add("text-green-400");
+        });
+
+      // Simulated progress animation
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 10;
+        progressBar.style.width = `${progress}%`;
+        if (progress >= 100) {
+          clearInterval(interval);
+        }
+      }, 500);
+
+      function copyToClipboard(code) {
+        navigator.clipboard.writeText(code);
+        alert(`✅ Code ${code} copied to clipboard!`);
+      }
+
+      document
+        .getElementById("downloadBtn")
+        .addEventListener("click", function () {
+          const fileCode = document
+            .getElementById("fileCodeInput")
+            .value.trim();
+          if (!fileCode) {
+            alert("⚠️ Enter a file code!");
+            return;
+          }
+          window.location.href = `/download/${fileCode}`;
+        });
+    </script>
+  </body>
+</html>
